@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hospedaje Agora</title>
+
+<style>
+
+/* =========================
+   PANTALLA DE BIENVENIDA
+========================= */
+
+#bienvenida {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    text-align: center;
+}
+
+#bienvenida img {
+    width: 80vw;
+    height: 60vh;
+    max-width: 700px;
+    object-fit: contain;
+}
+
+#bienvenida h1 {
+    color: #123c2d;
+    font-size: 32px;
+    margin: 10px;
+}
+
+#btnEntrar {
+    padding: 18px 65px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 23px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+#btnEntrar:hover {
+    background: #1b5e20;
+}
+
+
+/* =========================
+   PÁGINA PRINCIPAL
+========================= */
+
+#pagina-principal {
+    display: none;
+}
+
+
+/* =========================
+   CUERPO
+========================= */
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(212,175,55,0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(46,125,50,0.20),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #071d16,
+            #123c2d,
+            #06140f
+        );
+
+    color: white;
+}
+
+
+/* =========================
+   RELOJ
+========================= */
+
+#reloj {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    background: rgba(0,0,0,0.45);
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 15px;
+    z-index: 1000;
+}
+
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+header {
+    padding: 40px 20px 20px;
+}
+
+header img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+}
+
+header h1 {
+    font-size: 42px;
+    margin: 5px 0;
+    color: #d4af37;
+}
+
+header p {
+    font-size: 20px;
+}
+
+
+/* =========================
+   BOTONES PRINCIPALES
+========================= */
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.botones button {
+    padding: 16px 25px;
+    border: none;
+    border-radius: 14px;
+    background: #2e7d32;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botones button:hover {
+    background: #1b5e20;
+    transform: scale(1.03);
+}
+
+
+/* =========================
+   SECCIONES
+========================= */
+
+.apartado {
+    display: none;
+    margin: 50px auto;
+    max-width: 900px;
+    padding: 30px;
+
+    background: rgba(255,255,255,0.96);
+    color: #222;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.35);
+}
+
+.apartado h2 {
+    color: #123c2d;
+    font-size: 32px;
+}
+
+.apartado h3 {
+    color: #2e7d32;
+}
+
+
+/* =========================
+   TARJETAS
+========================= */
+
+.tarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tarjeta {
+    width: 220px;
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.15);
+}
+
+.tarjeta h3 {
+    color: #123c2d;
+}
+
+.precio {
+    font-size: 25px;
+    font-weight: bold;
+    color: #b8860b;
+}
+
+
+/* =========================
+   BOTÓN INICIO
+========================= */
+
+.inicio {
+    margin-top: 25px;
+
+    padding: 12px 25px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #123c2d;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   MAPA
+========================= */
+
+.mapa {
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+/* =========================
+   CONTACTO
+========================= */
+
+.contacto {
+    font-size: 19px;
+    line-height: 1.8;
+}
+
+.contacto strong {
+    color: #123c2d;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    header img {
+        width: 200px;
+        height: 200px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    .apartado {
+        margin: 25px 12px;
+        padding: 20px;
+    }
+
+    #reloj {
+        font-size: 12px;
+    }
+
+    #bienvenida img {
+        width: 90vw;
+        height: 50vh;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     PANTALLA DE BIENVENIDA
+========================= -->
+
+<div id="bienvenida">
+
+    <img src="2323-removebg-preview.png">
+
+    <h1>Hospedaje Agora</h1>
+
+    <button id="btnEntrar" type="button" onclick="entrar()">
+        ENTRAR
+    </button>
+
+</div>
+
+
+<!-- =========================
+     PÁGINA PRINCIPAL
+========================= -->
+
+<div id="pagina-principal">
+
+
+    <!-- RELOJ -->
+
+    <div id="reloj"></div>
+
+
+    <!-- ENCABEZADO -->
+
+    <header>
+
+        <img src="2323-removebg-preview.png">
+
+        <h1>Hospedaje Agora</h1>
+
+        <p>Tu comodidad, nuestra prioridad</p>
+
+    </header>
+
+
+    <!-- BOTONES -->
+
+    <div class="botones">
+
+        <button onclick="mostrar('habitaciones')">
+            🛏️ Habitaciones
+        </button>
+
+        <button onclick="mostrar('precios')">
+            💰 Precios
+        </button>
+
+        <button onclick="mostrar('servicios')">
+            ⭐ Servicios
+        </button>
+
+        <button onclick="mostrar('ubicacion')">
+            📍 Ubicación
+        </button>
+
+        <button onclick="mostrar('contacto')">
+            📞 Contacto
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         HABITACIONES
+    ========================= -->
+
+    <div id="habitaciones" class="apartado">
+
+        <h2>🛏️ Habitaciones</h2>
+
+        <p>
+            En Hospedaje Agora contamos con
+            <strong>18 habitaciones</strong>
+            para ofrecerte una estadía cómoda.
+        </p>
+
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+
+                <h3>🛏️ Habitación Matrimonial</h3>
+
+                <p>
+                    Ideal para una pareja.
+                </p>
+
+                <div class="precio">
+                    S/ 50
+                </div>
+
+                <p>por noche</p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>🛏️ Habitación Simple</h3>
+
+                <p>
+                    Cómoda habitación para una persona.
+                </p>
+
+                <div class="precio">
+                    S/ 40
+                </div>
+
+                <p>por noche</p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>🛏️ Habitación Doble</h3>
+
+                <p>
+                    Ideal para dos personas.
+                </p>
+
+                <div class="precio">
+                    S/ 80
+                </div>
+
+                <p>por noche</p>
+
+            </div>
+
+        </div>
+
+
+        <button class="inicio" onclick="inicio()">
+            🏠 Inicio
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         PRECIOS
+    ========================= -->
+
+    <div id="precios" class="apartado">
+
+        <h2>💰 Precios</h2>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+
+                <h3>Matrimonial</h3>
+
+                <div class="precio">
+                    S/ 50
+                </div>
+
+                <p>Por noche</p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>Simple</h3>
+
+                <div class="precio">
+                    S/ 40
+                </div>
+
+                <p>Por noche</p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>Doble</h3>
+
+                <div class="precio">
+                    S/ 80
+                </div>
+
+                <p>Por noche</p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>⏱️ Estadía 3 horas</h3>
+
+                <div class="precio">
+                    S/ 30
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="inicio" onclick="inicio()">
+            🏠 Inicio
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         SERVICIOS
+    ========================= -->
+
+    <div id="servicios" class="apartado">
+
+        <h2>⭐ Servicios</h2>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+
+                <h3>📺 TV</h3>
+
+                <p>
+                    Disfruta de televisión durante tu estadía.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>📶 WiFi</h3>
+
+                <p>
+                    Conexión WiFi para nuestros huéspedes.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>📹 Seguridad</h3>
+
+                <p>
+                    Contamos con cámaras de seguridad.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>🕐 Atención 24/7</h3>
+
+                <p>
+                    Atención durante todo el día.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button class="inicio" onclick="inicio()">
+            🏠 Inicio
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         UBICACIÓN
+    ========================= -->
+
+    <div id="ubicacion" class="apartado">
+
+        <h2>📍 Ubicación</h2>
+
+        <p>
+            Encuéntranos en Paita, Piura, Perú.
+        </p>
+
+
+        <div class="mapa">
+
+            <iframe
+                src="https://www.google.com/maps?q=WW32%2BQF8%2C%20C.%20F2%2C%20Paita%2020701%2C%20Per%C3%BA&output=embed"
+                width="100%"
+                height="350"
+                style="border:0; border-radius:15px;"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+
+        </div>
+
+
+        <button class="inicio" onclick="inicio()">
+            🏠 Inicio
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         CONTACTO
+    ========================= -->
+
+    <div id="contacto" class="apartado">
+
+        <h2>📞 Contacto</h2>
+
+
+        <div class="contacto">
+
+            <p>
+                📞 <strong>Reservas</strong>
+            </p>
+
+            <p>
+                +51 958 416 160
+            </p>
+
+
+            <hr>
+
+
+            <p>
+                📘 <strong>Redes sociales</strong>
+            </p>
+
+            <p>
+                Encuéntranos en Facebook como:
+            </p>
+
+            <p>
+                <strong>Hospedaje AGORA</strong>
+            </p>
+
+        </div>
+
+
+        <button class="inicio" onclick="inicio()">
+            🏠 Inicio
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+/* ENTRAR */
+
+function entrar() {
+
+    document.getElementById("bienvenida").style.display = "none";
+
+    document.getElementById("pagina-principal").style.display = "block";
+
+}
+
+
+/* MOSTRAR SECCIONES */
+
+function mostrar(apartado) {
+
+    var secciones = document.querySelectorAll(".apartado");
+
+    for (var i = 0; i < secciones.length; i++) {
+
+        secciones[i].style.display = "none";
+
+    }
+
+    document.getElementById(apartado).style.display = "block";
+
+}
+
+
+/* VOLVER AL INICIO */
+
+function inicio() {
+
+    var secciones = document.querySelectorAll(".apartado");
+
+    for (var i = 0; i < secciones.length; i++) {
+
+        secciones[i].style.display = "none";
+
+    }
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* RELOJ Y FECHA */
+
+function actualizarReloj() {
+
+    var ahora = new Date();
+
+    var hora = ahora.toLocaleTimeString("es-PE");
+
+    var fecha = ahora.toLocaleDateString("es-PE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+
+    document.getElementById("reloj").innerHTML =
+        "🕐 " + hora + "<br>📅 " + fecha;
+
+}
+
+
+actualizarReloj();
+
+setInterval(actualizarReloj, 1000);
+
+
+</script>
+
+</body>
+</html>
